@@ -1,0 +1,904 @@
+@prefix : <http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/> .
+
+<http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#nãoÉacessível
+:nãoÉacessível rdf:type owl:ObjectProperty ;
+               rdfs:domain :documento ;
+               rdfs:range :barreiras ;
+               rdfs:comment "Documento sem acessibilidade" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#temAcesDigital
+:temAcesDigital rdf:type owl:ObjectProperty ;
+                rdfs:domain :documento ;
+                rdfs:range :documento_acessível ;
+                rdfs:comment "Documento tem acessibilidade digital: elimina barreiras na web." .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#temAcessComunicação
+:temAcessComunicação rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty ;
+                     rdfs:domain :acessibilidade_comunicacional ;
+                     rdfs:range :audiodescrição ,
+                                :janela_de_libras ,
+                                :legenda ,
+                                :legenda_oculta ,
+                                :linguagem_simples ;
+                     rdfs:comment "Documento com acessibilidade na comunicação" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#éAcessível
+:éAcessível rdf:type owl:ObjectProperty ;
+            rdfs:domain :acessibilidade ;
+            rdfs:range :documento_acessível ,
+                       :recursos_de_acessibilidade ;
+            rdfs:comment "Garante acessibilidade" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#éBomParaPcD
+:éBomParaPcD rdf:type owl:ObjectProperty ;
+             rdfs:domain :pessoa_com_deficiência ;
+             rdfs:range :acessibilidade ,
+                        :documento_acessível ,
+                        :recursos_de_acessibilidade ;
+             rdfs:comment "Assegura algum grau de acessibilidade" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#éBomParaPcDIntelectual
+:éBomParaPcDIntelectual rdf:type owl:ObjectProperty ;
+                        rdfs:domain :pessoa_com_deficiência_intelectual ;
+                        rdfs:range :linguagem_clara ;
+                        rdfs:comment "Assegura algum grau de acessibilidade para pessoa com deficiência intelectual" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#BarreirasAcess
+:BarreirasAcess rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain :barreiras ;
+                rdfs:range xsd:short ;
+                rdfs:comment """Identifica quais barreiras contra acessibilidade o documento possui, a saber: 
+- barreiras nas comunicações e na informação;
+- barreiras tecnológicas;
+- texto em colunas;
+- célula mesclada em tabela;
+- caixa de texto;
+- fonte com serifa;
+- texto no cabeçalho;
+- texto no rodapé;
+- gif;
+- gráfico;
+- mapa;
+- captcha.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#PúblicoAlvoDoc
+:PúblicoAlvoDoc rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain :pessoa ;
+                rdfs:range xsd:short ;
+                rdfs:comment """O público-alvo de documentos acessíveis pode ser:
+- pessoa com deficiência intelectual;
+- pessoa com deficiência auditiva;
+- pessoa com deficiência visual;
+- pessoa com mobilidade reduzida;
+- pessoa com transtorno funcional específico.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#RecursosAcess
+:RecursosAcess rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain :recursos_de_acessibilidade ;
+               rdfs:range xsd:short ;
+               rdfs:comment """Identifica quais de recursos de acessibilidade foram usados no documento acessíveis. Os recursos podem ser:
+- ampliador de tela
+- audiodescrição
+- avatar de Libras
+- caracteres ampliados
+- legenda
+- legenda oculta
+- leitor de tela
+- símbolos de acessibilidade
+- transcrição textual
+- texto alt
+- texto alternativo
+- descrição de imagem
+- janela de libras
+- português simplificado
+- linguagem clara
+- linguagem simples
+- fonte sem serifa.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#TipoPcD
+:TipoPcD rdf:type owl:DatatypeProperty ;
+         rdfs:comment """Tipos de deficiência da pessoa com deficiência, que podem ser:
+- pessoa com deficiência intelectual;
+- pessoa com deficiência auditiva;
+- pessoa com deficiência visual;
+- pessoa com mobilidade reduzida;
+- pessoa com transtorno funcional específico.""" .
+
+
+###  http://www.w3.org/2002/07/owl#topDataProperty
+owl:topDataProperty rdfs:subPropertyOf owl:topDataProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#braile
+:braile rdf:type owl:Class ;
+        owl:equivalentClass :sistema_de_escrita_braile ;
+        rdfs:subClassOf :acessibilidade ;
+        rdfs:comment "USE \"sistema_de_escrita_braile\"." .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#documento_digital_com_acessibilidade
+:documento_digital_com_acessibilidade rdf:type owl:Class ;
+                                      rdfs:subClassOf :documento_acessível ;
+                                      rdfs:comment """Com recursos de acessibilidade, é um documento codificado em dígitos binários, acessível por meio de sistema computacional.
+
+DOCUMENTO digital. In: DICIONÁRIO brasileiro de terminologia arquivística. Rio de Janeiro: Arquivo Nacional, 2005. Disponível em: https://www.gov.br/conarq/pt-br/centrais-de-conteudo/publicacoes/dicionrio_de_terminologia_arquivistica.pdf. Acesso em: 1 set. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#documento_eletrônico
+:documento_eletrônico rdf:type owl:Class ;
+                      owl:equivalentClass :documento_digital ;
+                      rdfs:subClassOf :documento ;
+                      rdfs:comment "USE \"documento_digital\"." .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#documento_escrito_com_acessibilidade
+:documento_escrito_com_acessibilidade rdf:type owl:Class ;
+                                      rdfs:subClassOf :documento_acessível ;
+                                      rdfs:comment """Com recursos de acessibilidade, é a representação de um fato de forma manuscrita.
+
+COÊLHO, V. F.; ALLEMAND, L. G. Processo judicial eletrônico. Brasília: OAB, 2014. Disponível em: http://www.gedai.com.br/wp-content/uploads/2015/04/artigo_marcos_wachowicz_processo_eletronico_oab_federal-1.pdf. Acesso em: 30 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#documento_sonoro_com_acessibilidade
+:documento_sonoro_com_acessibilidade rdf:type owl:Class ;
+                                     rdfs:subClassOf :documento_acessível ;
+                                     rdfs:comment """Com recursos de acessibilidade, é um registro sonoro.
+
+DOCUMENTO sonoro. In: DICIONÁRIO brasileiro de terminologia arquivística. Rio de Janeiro: Arquivo Nacional, 2005. Disponível em: https://www.gov.br/conarq/pt-br/centrais-de-conteudo/publicacoes/dicionrio_de_terminologia_arquivistica.pdf. Acesso em: 1 set. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#documento_virtual
+:documento_virtual rdf:type owl:Class ;
+                   owl:equivalentClass :documento_digital ;
+                   rdfs:subClassOf :documento ;
+                   rdfs:comment "USE \"documento_digital\"." .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#documento_visual_com_acessibilidade
+:documento_visual_com_acessibilidade rdf:type owl:Class ;
+                                     owl:equivalentClass :documento_visual_em_audiodescrição ;
+                                     rdfs:subClassOf :documento_acessível ;
+                                     owl:disjointWith :documento_visual ;
+                                     rdfs:comment """Com recursos de acessibilidade, é um gênero documental integrado por documentos que contêm imagens, fixas ou imagens em movimento, e registros sonoros, como filmes e fitas videomagnéticas.	
+
+DOCUMENTO visual. In: DICIONÁRIO brasileiro de terminologia arquivística. Rio de Janeiro: Arquivo Nacional, 2005. Disponível em: https://www.gov.br/conarq/pt-br/centrais-de-conteudo/publicacoes/dicionrio_de_terminologia_arquivistica.pdf. Acesso em: 1 set. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#legenda_descritiva
+:legenda_descritiva rdf:type owl:Class ;
+                    owl:equivalentClass :legenda_oculta ;
+                    rdfs:subClassOf :recursos_de_acessibilidade ;
+                    rdfs:comment "Ver \"legenda_oculta\"." .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#libras
+:libras rdf:type owl:Class ;
+        owl:equivalentClass :linguagem_brasileira_de_sinais ;
+        rdfs:subClassOf :acessibilidade ;
+        rdfs:comment "USE \"linguagem_brasileira_de_sinais\"." .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#linguagem_clara
+:linguagem_clara rdf:type owl:Class ;
+                 owl:equivalentClass :português_simplificado ;
+                 rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa
+:pessoa rdf:type owl:Class ;
+        rdfs:comment """Característica própria que distingue alguém; individualidade.
+
+PESSOA. In: DICIONÁRIO Online de Português. Disponível em: https://www.dicio.com.br/pessoa. Acesso em: 25 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_doença_mental
+:pessoa_com_doença_mental rdf:type owl:Class ;
+                          rdfs:subClassOf :pessoa ;
+                          owl:disjointWith :pessoa_com_deficiência_intelectual ;
+                          rdfs:comment """Pessoa com doença mental não é uma pessoa com deficiência, pois a doença mental engloba uma série de condições que causam alteração de humor e comportamento e podem afetar o desempenho da pessoa na sociedade. Essas alterações acontecem na mente da pessoa e causam uma alteração na sua percepção da realidade. Em resumo, é uma doença psiquiátrica, que deve ser tratada por um psiquiatra, com uso de medicamentos específicos para cada situação.
+
+INSTITUTO JÔ CLEMENTE. Deficiência intelectual: o que é?, 20--. Disponível em: https://ijc.org.br/paginas/o-que-e-deficiencia-intelectual.aspx. Acesso em: 10 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_sem_deficiência
+:pessoa_sem_deficiência rdf:type owl:Class ;
+                        rdfs:subClassOf :pessoa ;
+                        owl:disjointWith :pessoa_com_deficiência ;
+                        rdfs:comment """Uma pessoa sem deficiência é designada pessoa sem deficiência ou pessoa não-deficiente. Não use o termo pessoa normal. A normalidade, em relação a pessoas, é um conceito questionável e ultrapassado.
+
+SASSAKI, R. K. Terminologia sobre deficiência na era da inclusão. Câmara dos Deputados, 2011. Disponível: https://www2.camara.leg.br/a-camara/estruturaadm/gestao-na-camara-dos-deputados/responsabilidade-social-e-ambiental/acessibilidade/glossarios/terminologia-sobre-deficiencia-na-era-da-inclusao. Acesso em: 10 out. 2023""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#português_simplificado
+:português_simplificado rdf:type owl:Class ;
+                        owl:equivalentClass :linguagem_simples ;
+                        rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#texto_alt
+:texto_alt rdf:type owl:Class ;
+           owl:equivalentClass :texto_alternativo ,
+                               :linguagem_simples ;
+           rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#texto_alternativo
+:texto_alternativo rdf:type owl:Class ;
+                   rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#vídeo
+:vídeo rdf:type owl:Class ;
+       owl:equivalentClass :documento_visual ;
+       rdfs:subClassOf :documento .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#áudio
+:áudio rdf:type owl:Class ;
+       owl:equivalentClass :documento_sonoro ;
+       rdfs:subClassOf :documento .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/acessibilidade
+:acessibilidade rdf:type owl:Class ;
+                owl:disjointWith :barreiras ;
+                rdfs:comment """Possibilidade e condição de alcance para utilização, com segurança e autonomia, de espaços, mobiliários, equipamentos urbanos, edificações, transportes, informação e comunicação, inclusive seus sistemas e tecnologias, bem como de outros serviços e instalações abertos ao público, de uso público ou privados de uso coletivo, tanto na zona urbana como na rural, por pessoa com deficiência ou com mobilidade reduzida.
+
+BRASIL. Lei nº 13.146, de 6 de julho de 2015. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). Brasília: Presidência da República, 2015. Disponível em: http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm. Acesso em: 26 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/acessibilidade_comunicacional
+:acessibilidade_comunicacional rdf:type owl:Class ;
+                               rdfs:subClassOf :acessibilidade ;
+                               owl:disjointWith :barreiras_nas_comunicações_e_na_informação ;
+                               rdfs:comment """Oferecer recursos, atividades e bens culturais que promovam independência e autonomia aos indivíduos que necessitam de serviços específicos para acessar um conteúdo proposto. Audiodescrição, legendas, janela de Língua Brasileira de Sinais (Libras), impressões em braille e dublagem são exemplos de recursos existentes.
+
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/acessibilidade_digital
+:acessibilidade_digital rdf:type owl:Class ;
+                        rdfs:subClassOf :acessibilidade ;
+                        owl:disjointWith :barreiras_tecnológicas ;
+                        rdfs:comment """Eliminação de barreiras na web. O conceito pressupõe que os sites e portais sejam projetados de modo que todas as pessoas possam perceber, entender, navegar e interagir de maneira efetiva com as páginas.
+
+ACESSIBILIDADE DIGITAL. In: BRASIL. Governo digital. Brasília: Ministério da Economia, 2022. Disponível em: https://www.gov.br/governodigital/pt-br/acessibilidade-digital. Acesso em: 30 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/ampliador_de_tela
+:ampliador_de_tela rdf:type owl:Class ;
+                   rdfs:subClassOf :recursos_de_acessibilidade ;
+                   owl:disjointWith :documento_escrito .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/audiodescrição
+:audiodescrição rdf:type owl:Class ;
+                rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/avatar_de_Libras
+:avatar_de_Libras rdf:type owl:Class ;
+                  rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/barreiras
+:barreiras rdf:type owl:Class ;
+           owl:disjointWith :documento_digital ,
+                            :pessoa_com_deficiência ,
+                            :recursos_de_acessibilidade ;
+           rdfs:comment """Qualquer entrave, obstáculo, atitude ou comportamento que limite ou impeça a participação social da pessoa, bem como o gozo, a fruição e o exercício de seus direitos à acessibilidade, à liberdade de movimento e de expressão, à comunicação, ao acesso à informação, à compreensão, à circulação com segurança, entre outros.	
+
+BRASIL. Lei nº 13.146, de 6 de julho de 2015. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). Brasília: Presidência da República, 2015. Disponível em: http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm. Acesso em: 26 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/barreiras_nas_comunicações_e_na_informação
+:barreiras_nas_comunicações_e_na_informação rdf:type owl:Class ;
+                                            rdfs:subClassOf :barreiras ;
+                                            rdfs:comment """Qualquer entrave, obstáculo, atitude ou comportamento que dificulte ou impossibilite a expressão ou o recebimento de mensagens e de informações por intermédio de sistemas de comunicação e de tecnologia da informação.
+
+
+BRASIL. Lei nº 13.146, de 6 de julho de 2015. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). Brasília: Presidência da República, 2015. Disponível em: http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm. Acesso em: 26 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/barreiras_tecnológicas
+:barreiras_tecnológicas rdf:type owl:Class ;
+                        rdfs:subClassOf :barreiras ;
+                        rdfs:comment """As que dificultam ou impedem o acesso da pessoa com deficiência às tecnologias.	
+
+BRASIL. Lei nº 13.146, de 6 de julho de 2015. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). Brasília: Presidência da República, 2015. Disponível em: http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm. Acesso em: 26 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/caracteres_ampliados
+:caracteres_ampliados rdf:type owl:Class ;
+                      rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/descrição_de_imagem
+:descrição_de_imagem rdf:type owl:Class ;
+                     rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/documento
+:documento rdf:type owl:Class ;
+           owl:disjointWith :documento_acessível ;
+           rdfs:comment """Unidade de registro de informações, qualquer que seja o suporte ou o formato.	
+
+DOCUMENTO. In: DICIONÁRIO brasileiro de terminologia arquivística. Rio de Janeiro: Arquivo Nacional, 2005. Disponível em: https://www.gov.br/conarq/pt-br/centrais-de-conteudo/publicacoes/dicionrio_de_terminologia_arquivistica.pdf. Acesso em: 1 set. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/documento_acessível
+:documento_acessível rdf:type owl:Class ;
+                     rdfs:comment """Instrumento de democratização da informação e do conhecimento.	
+
+SCHMITZ, D. dos A.; PAVÃO, A. C. O. Democratização da informação e do conhecimento por meio da acessibilidade em documentos digitais. ETD: Educação Temática Digital, Campinas, v. 20, n. 4, p. 1117-1137, 2018. DOI: 10.20396/etd.v20i4.8650361. Disponível em: https://periodicos.sbu.unicamp.br/ojs/index.php/etd/article/view/8650361. Acesso em: 11 set. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/documento_digital
+:documento_digital rdf:type owl:Class ;
+                   rdfs:subClassOf :documento ;
+                   rdfs:comment """Documento codificado em dígitos binários, acessível por meio de sistema computacional.
+
+DOCUMENTO digital. In: DICIONÁRIO brasileiro de terminologia arquivística. Rio de Janeiro: Arquivo Nacional, 2005. Disponível em: https://www.gov.br/conarq/pt-br/centrais-de-conteudo/publicacoes/dicionrio_de_terminologia_arquivistica.pdf. Acesso em: 1 set. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/documento_escrito
+:documento_escrito rdf:type owl:Class ;
+                   rdfs:subClassOf :documento .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/documento_sonoro
+:documento_sonoro rdf:type owl:Class ;
+                  rdfs:subClassOf :documento .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/documento_visual
+:documento_visual rdf:type owl:Class ;
+                  rdfs:subClassOf :documento .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/documento_visual_em_audiodescrição
+:documento_visual_em_audiodescrição rdf:type owl:Class ;
+                                    rdfs:subClassOf :documento_acessível ;
+                                    rdfs:comment """A fim de tornar os conteúdos imagéticos acessíveis às pessoas com deficiência visual, orienta-se a adoção de práticas de adaptação, como a audiodescrição.	
+
+RENATA, I.; MARTINS, A. Tutorial de audiodescrição: dicas e orientações. Belo Horizonte: UFMG, out, 2021. Disponível em: https://www.ufmg.br/nai/wp-content/uploads/2021/10/Tutorial-Audiodescri%C3%A7%C3%A3o.pdf. Acesso em: 14 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/fonte_com_serifa
+:fonte_com_serifa rdf:type owl:Class ;
+                  rdfs:subClassOf :barreiras ;
+                  owl:disjointWith :fonte_sem_serifa ;
+                  rdfs:comment """Prefira as fontes sem serifa (sans‐serif), como Arial, Tahoma, Verdana, Helvetica, Avenir, e Futura. Fontes serifadas, como Times New Roman, Georgia, e Courier New, dão a impressão de estarem unidas, devido aos prolongamentos no fim das hastes das letras, podendo confundir usuários com baixa visão. E fontes muito “enfeitadas” dificultam a leitura de pessoas com dificuldade de aprendizagem.	
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/fonte_sem_serifa
+:fonte_sem_serifa rdf:type owl:Class ;
+                  rdfs:subClassOf :recursos_de_acessibilidade ;
+                  rdfs:comment """Prefira as fontes sem serifa (sans‐serif), como Arial, Tahoma, Verdana, Helvetica, Avenir, e Futura. Fontes serifadas, como Times New Roman, Georgia, e Courier New, dão a impressão de estarem unidas, devido aos prolongamentos no fim das hastes das letras, podendo confundir usuários com baixa visão. E fontes muito “enfeitadas” dificultam a leitura de pessoas com dificuldade de aprendizagem.	
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/janela_de_libras
+:janela_de_libras rdf:type owl:Class ;
+                  rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/legenda
+:legenda rdf:type owl:Class ;
+         rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/legenda_oculta
+:legenda_oculta rdf:type owl:Class ;
+                rdfs:subClassOf :recursos_de_acessibilidade ;
+                rdfs:comment """Texto que descreve diálogos e elementos narrativos não verbais, como sons ambientes, trilhas e efeitos sonoros de uma obra.
+
+BRASIL. Instrução Normativa SECOM n. 3, de 14 de setembro de 2023. Dispõe sobre medidas de acessibilidade comunicacional no âmbito das produções e ações da Secretaria de Comunicação Social da Presidência da República. Brasília: Presidência da República, 2023. Disponível em: https://www.in.gov.br/web/dou/-/instrucao-normativa-secom-n-3-de-14-de-setembro-de-2023-510068147. Acesso em: 11 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/leitor_de_tela
+:leitor_de_tela rdf:type owl:Class ;
+                rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/linguagem_brasileira_de_sinais
+:linguagem_brasileira_de_sinais rdf:type owl:Class ;
+                                rdfs:subClassOf :acessibilidade ;
+                                rdfs:comment """É a forma de comunicação e expressão com sistema linguístico de natureza visual-motora, com estrutura gramatical própria, sendo um sistema linguístico de transmissão de ideias e fatos, oriundos de comunidades de pessoas surdas do Brasil.	
+
+BRASIL. Lei nº 10.436, de 24 de abril de 2002. Dispõe sobre a Língua Brasileira de Sinais - Libras e dá outras providências. Brasília: Presidência da República, 2022. Disponível em: https://www.planalto.gov.br/ccivil_03/leis/2002/l10436.htm. Acesso em: 21 nov. 2022.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/linguagem_simples
+:linguagem_simples rdf:type owl:Class ;
+                   rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/pessoa_com_deficiência
+:pessoa_com_deficiência rdf:type owl:Class ;
+                        rdfs:subClassOf :pessoa ;
+                        rdfs:comment """Pessoa com impedimento de longo prazo de natureza física, mental, intelectual ou sensorial, o qual, em interação com uma ou mais barreiras, pode obstruir sua participação plena e efetiva na sociedade em igualdade de condições com as demais pessoas.
+
+BRASIL. Lei nº 13.146, de 6 de julho de 2015. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). Brasília: Presidência da República, 2015. Disponível em: http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm. Acesso em: 26 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/pessoa_com_deficiência_auditiva
+:pessoa_com_deficiência_auditiva rdf:type owl:Class ;
+                                 rdfs:subClassOf :pessoa_com_deficiência ;
+                                 rdfs:comment """Pessoa com perda total ou parcial da capacidade de ouvir.
+
+BRASIL. Política Nacional de Saúde da Pessoa com Deficiência. Brasília: Ministério da Saúde, 2017. Disponível em: https://bvsms.saude.gov.br/bvs/saudelegis/gm/2017/MatrizesConsolidacao/comum/37518.html. Acesso em: 30 out. 2023""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/pessoa_com_deficiência_intelectual
+:pessoa_com_deficiência_intelectual rdf:type owl:Class ;
+                                    rdfs:subClassOf :pessoa_com_deficiência ;
+                                    rdfs:comment """Na deficiência intelectual a pessoa apresenta um atraso no seu desenvolvimento, dificuldades para aprender e realizar tarefas do dia a dia e interagir com o meio em que vive. Ou seja, existe um comprometimento cognitivo, que acontece antes dos 18 anos, e que prejudica suas habilidades adaptativas.
+
+Já a doença mental engloba uma série de condições que causam alteração de humor e comportamento e podem afetar o desempenho da pessoa na sociedade. Essas alterações acontecem na mente da pessoa e causam uma alteração na sua percepção da realidade. Em resumo, é uma doença psiquiátrica, que deve ser tratada por um psiquiatra, com uso de medicamentos específicos para cada situação.	
+
+INSTITUTO JÔ CLEMENTE. Deficiência intelectual: o que é?, 20--. Disponível em: https://ijc.org.br/paginas/o-que-e-deficiencia-intelectual.aspx. Acesso em: 10 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/pessoa_com_deficiência_visual
+:pessoa_com_deficiência_visual rdf:type owl:Class ;
+                               rdfs:subClassOf :pessoa_com_deficiência ;
+                               rdfs:comment """Pessoa com cegueira ou com baixa visão.
+
+BRASIL. Política Nacional de Saúde da Pessoa com Deficiência. Brasília: Ministério da Saúde, 2017. Disponível em: https://bvsms.saude.gov.br/bvs/saudelegis/gm/2017/MatrizesConsolidacao/comum/37518.html. Acesso em: 30 out. 2023""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/pessoa_com_mobilidade_reduzida
+:pessoa_com_mobilidade_reduzida rdf:type owl:Class ;
+                                rdfs:subClassOf :pessoa_com_deficiência ;
+                                rdfs:comment """Pessoa que tenha, por qualquer motivo, dificuldade de movimentação, permanente ou temporária, gerando redução efetiva da mobilidade, da flexibilidade, da coordenação motora ou da percepção, incluindo idoso, gestante, lactante, pessoa com criança de colo e obeso.
+
+BRASIL. Lei nº 13.146, de 6 de julho de 2015. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). Brasília: Presidência da República, 2015. Disponível em: http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm. Acesso em: 26 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/pessoa_com_transtorno_funcional_específico
+:pessoa_com_transtorno_funcional_específico rdf:type owl:Class ;
+                                            rdfs:subClassOf :pessoa_com_deficiência ;
+                                            rdfs:comment """Pessoas com transtornos funcionais específicos são indivíduos com cujas condições intrínsecas do sujeito (os transtornos funcionais) não comprometem sua intelectualidade. Os transtornos funcionais específicos formam um grupo heterogêneo de alterações manifestadas por dificuldades significativas na aquisição e uso da audição, fala, leitura, escrita, raciocínio ou habilidades matemáticas, na atenção e concentração. Dentre os distúrbios de aprendizagem mais comuns há dislexia, disgrafia, disortografia, discalculia, e transtornos de atenção e hiperatividade.	
+
+CUSTÓDIO, L. A.; PEREIRA, C. D. Transtornos funcionais específicos: conhecer para intervir. In: PARANÁ. Secretaria de Educação. Os desafios da escola pública paranaense na perspectiva do professor PDE: Artigos. Paraná: Secretaria de Educação, 2013. p. 5-6. Disponível em: http://www.diaadiaeducacao.pr.gov.br/portals/cadernospde/pdebusca/producoes_pde/2013/2013_fafipa_ped_artigo_luciane_de_andrade.pdf. Acesso em: 21 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/recursos_de_acessibilidade
+:recursos_de_acessibilidade rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/sistema_de_escrita_braile
+:sistema_de_escrita_braile rdf:type owl:Class ;
+                           rdfs:subClassOf :acessibilidade ;
+                           rdfs:comment """Sistema com diferentes combinações de 1 a 6 pontos em relevo, que se alastrou pelo mundo e hoje é usado como forma oficial de escrita e de leitura das pessoas cegas. O Braille é composto por 63 sinais, gravados em relevo. Esses sinais são combinados em duas filas verticais com 3 pontos cada uma. A leitura se faz da esquerda para a direita.
+
+
+BRASIL. Dia mundial do Braille reflete sobre atendimento aos cegos. Brasília: Ministério da Educação, 2022. Disponível em: http://portal.mec.gov.br/component/tags/tag/braille. Acesso em: 29 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/símbolos_de_acessibilidade
+:símbolos_de_acessibilidade rdf:type owl:Class ;
+                            rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18/transcrição_textual
+:transcrição_textual rdf:type owl:Class ;
+                     rdfs:subClassOf :recursos_de_acessibilidade .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#arial
+:arial rdf:type owl:NamedIndividual ,
+                :fonte_sem_serifa ;
+       rdfs:comment """Arial é uma fonte sem serifa.
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#caixa_de_texto
+:caixa_de_texto rdf:type owl:NamedIndividual ,
+                         :barreiras_nas_comunicações_e_na_informação ;
+                rdfs:comment """Não utilize caixa de texto. Ao invés disto, digite normalmente o texto e depois coloque uma borda ao seu redor. O efeito será o mesmo. Leitores de tela ignoram caixas de texto, ou seja, um usuário utilizando leitor de tela não tem acesso ao conteúdo inserido desta forma.
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#captcha
+:captcha rdf:type owl:NamedIndividual ,
+                  :barreiras_tecnológicas ;
+         rdfs:comment """É um meio automatizado de gerar desafios que, hipoteticamente, apenas seres humanos possam resolver. O tipo mais comum requer que o usuário identifique letras distorcidas em um arquivo de imagem, que podem ser de difícil compreensão para pessoas com baixa visão, e são de impossível compreensão para pessoas cegas.
+
+A sigla Captcha significa Completely Automated Public Turing test to tell Computers and Humans Apart. Em português, Captcha significa Teste de Turing Público Completamente Automatizado para Distinguir Computadores de Humanos.
+Captchas são utilizados para impedir que softwares automatizados, conhecidos como bots, executem ações que degradem a qualidade do serviço de um sistema, provocando danos em áreas e e-serviços de sítios em um curto espaço de tempo, podendo sobrecarregar servidores e deixar sítios indisponíveis por um dado período.	
+BRASIL. eMAG: Modelo de Acessibilidade em Governo Eletrônico. Ministério do Planejamento, Orçamento e Gestão, Secretaria de Logística e Tecnologia da Informação. Brasília: MP, SLTI, 2014. Disponível em: https://emag.governoeletronico.gov.br. Acesso em: 20 set. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#carta
+:carta rdf:type owl:NamedIndividual ,
+                :documento_escrito .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#closed_caption
+:closed_caption rdf:type owl:NamedIndividual ,
+                         :legenda_descritiva ,
+                         :legenda_oculta .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#courier_new
+:courier_new rdf:type owl:NamedIndividual ,
+                      :fonte_com_serifa ;
+             rdfs:comment """Courier new é uma fonte com serifa.
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#célula_mesclada_em_tabela
+:célula_mesclada_em_tabela rdf:type owl:NamedIndividual ,
+                                    :barreiras_nas_comunicações_e_na_informação ;
+                           rdfs:comment """Não utilize células mescladas em tabelas. E utilize tabelas apenas para dados tabulares e não para modificar o layout ou para dividir o documento em colunas. Os leitores de tela realizam a leitura de forma linear, sem agrupar linhas ou colunas.	
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#discalculia
+:discalculia rdf:type owl:NamedIndividual ,
+                      :pessoa_com_transtorno_funcional_específico .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#disgrafia
+:disgrafia rdf:type owl:NamedIndividual ,
+                    :pessoa_com_transtorno_funcional_específico .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#dislexia
+:dislexia rdf:type owl:NamedIndividual ,
+                   :pessoa_com_transtorno_funcional_específico .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#disortografia
+:disortografia rdf:type owl:NamedIndividual ,
+                        :pessoa_com_transtorno_funcional_específico .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#georgia
+:georgia rdf:type owl:NamedIndividual ,
+                  :fonte_com_serifa ;
+         rdfs:comment """Georgia é uma fonte com serifa.
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#gif
+:gif rdf:type owl:NamedIndividual ,
+              :barreiras_nas_comunicações_e_na_informação ,
+              :barreiras_tecnológicas ;
+     rdfs:comment """Evite utilizar GIF animado sem necessidade. Animações podem distrair ou confundir usuários que utilizam leitores de tela, pessoas com dificuldade de concentração ou com algum grau de deficiência intelectual, entre outros.
+
+GIF significa Graphics Interchange Format (ou Formato de Intercâmbio Gráfico, em português). O GIF é um formato de arquivo rasterizado projetado para imagens relativamente básicas que aparecem principalmente na Internet. Cada arquivo pode suportar até 8 bits por pixel e conter 256 cores indexadas. Os arquivos GIF também permitem combinar imagens ou quadros, criando animações básicas.	
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.
+
+ADOBE. Arquivos GIF, © 2023. Disponível em: https://www.adobe.com/br/creativecloud/file-types/image/raster/gif-file.html. Acesso em: 26 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#gráfico
+:gráfico rdf:type owl:NamedIndividual ,
+                  :barreiras_nas_comunicações_e_na_informação ;
+         rdfs:comment """Gráficos necessitam de uma descrição mais detalhada, além do texto alternativo (texto alt). Os leitores de tela não têm como passar o conteúdo de uma imagem complexa para o usuário.
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#helvetica
+:helvetica rdf:type owl:NamedIndividual ,
+                    :fonte_sem_serifa ;
+           rdfs:comment """Helvetica é uma fonte sem serifa.
+ 
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#mapa
+:mapa rdf:type owl:NamedIndividual ,
+               :barreiras_nas_comunicações_e_na_informação ;
+      rdfs:comment """Mapas necessitam de uma descrição mais detalhada, além do texto alternativo (texto alt). Os leitores de tela não têm como passar o conteúdo de uma imagem complexa para o usuário.
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#mensagem_de_e-mail
+:mensagem_de_e-mail rdf:type owl:NamedIndividual ,
+                             :documento_eletrônico ,
+                             :documento_digital .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#mulher_gestante
+:mulher_gestante rdf:type owl:NamedIndividual ,
+                          :pessoa_sem_deficiência .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#mulher_lactante
+:mulher_lactante rdf:type owl:NamedIndividual ,
+                          :pessoa_sem_deficiência .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#organograma
+:organograma rdf:type owl:NamedIndividual ,
+                      :barreiras_nas_comunicações_e_na_informação ;
+             rdfs:comment """Organogramas necessitam de uma descrição mais detalhada, além do texto alternativo (texto alt). Os leitores de tela não têm como passar o conteúdo de uma imagem complexa para o usuário.
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pdf_acessível
+:pdf_acessível rdf:type owl:NamedIndividual ,
+                        :documento_digital_com_acessibilidade ;
+               rdfs:comment """É um documento em formato PDF com recursos de acessibilidade, como descrição de imagens, texto alternativo, estruturação do conteúdo, tags, tabelas de conteúdo e hiperlinks. Assim, o PDF acessível pode ser lido e compreendido por pessoas com deficiência visual ou outras limitações de acesso à informação. É possível criar um PDF acessível com o software Adobe Acrobat.
+
+ADOBE. Recursos de acessibilidade em PDFs, 24 maio 2023. Disponível em: https://helpx.adobe.com/br/acrobat/using/accessibility-features-pdfs.html. Acesso em: 10 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_atraso_no_desenvolvimento
+:pessoa_com_atraso_no_desenvolvimento rdf:type owl:NamedIndividual ,
+                                               :pessoa_com_deficiência_intelectual ;
+                                      rdfs:comment """Quando uma criança se desenvolve mais lentamente em comparação com outras da mesma idade, pode ser um sinal de atraso no desenvolvimento. Neste caso, uma ou mais áreas do desenvolvimento podem ser afetadas, incluindo a capacidade de locomoção, comunicação, aprendizagem e interação com outras crianças. Às vezes, as crianças com atraso no desenvolvimento podem não falar e se comportar de maneira apropriada para a idade, mas podem progredir à medida que crescem. Para outros, o atraso no desenvolvimento pode se tornar mais significativo ao longo do tempo e afetar o aprendizado e a educação.
+
+DIAS, S. de S.; OLIVEIRA, M. C. S. L. de. Deficiência intelectual na perspectiva histórico-cultural: contribuições ao estudo do desenvolvimento adulto. Revista Brasileira de Educação Especial, v. 19, n. 2, 2013, p.169-182. DOI: 10.1590/S1413-65382013000200003. Disponível em: http://www.scielo.br/scielo.php?script=sci_arttext&pid=S1413-65382013000200003&lng=pt&nrm=iso. Acesso em: 23 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_criança_de_colo
+:pessoa_com_criança_de_colo rdf:type owl:NamedIndividual ,
+                                     :pessoa_sem_deficiência .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_síndrome_de_down
+:pessoa_com_síndrome_de_down rdf:type owl:NamedIndividual ,
+                                      :pessoa_com_deficiência_intelectual ;
+                             rdfs:comment """A síndrome de Down não é uma doença, mas uma desordem genética que ocorre quando alguém nasce com uma duplicação do cromossomo 21 em seu DNA. A síndrome de Down é o distúrbio genético cromossômico mais comum e a causa de distúrbios de aprendizagem em crianças. Pessoas com síndrome de Down podem ter características físicas e de desenvolvimento comuns, além de uma incidência maior que o normal de problemas respiratórios e cardíacos. As características físicas associadas à síndrome de Down incluem: leve inclinação ascendente dos olhos, rosto arredondado e baixa estatura. As pessoas também podem ter algum nível de deficiência intelectual e de aprendizagem, mas isso varia muito em cada caso.
+
+DIAS, S. de S.; OLIVEIRA, M. C. S. L. de. Deficiência intelectual na perspectiva histórico-cultural: contribuições ao estudo do desenvolvimento adulto. Revista Brasileira de Educação Especial, v. 19, n. 2, 2013, p.169-182. DOI: 10.1590/S1413-65382013000200003. Disponível em: http://www.scielo.br/scielo.php?script=sci_arttext&pid=S1413-65382013000200003&lng=pt&nrm=iso. Acesso em: 23 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_síndrome_do_X_frágil
+:pessoa_com_síndrome_do_X_frágil rdf:type owl:NamedIndividual ,
+                                          :pessoa_com_deficiência_intelectual ;
+                                 rdfs:comment """A síndrome do X frágil é a causa mais comum de deficiência intelectual em todo o mundo. É uma condição genética causada por uma mutação – alteração na estrutura do DNA – no cromossomo X. As pessoas nascidas com a síndrome do X frágil podem experimentar uma ampla gama de dificuldades físicas, de desenvolvimento, comportamentais e emocionais. No entanto, a gravidade pode ser muito variada. Alguns sinais comuns da síndrome do X frágil incluem: atraso no desenvolvimento, deficiência intelectual, dificuldades na comunicação, ansiedade, TDAH e comportamentos semelhantes ao autismo, como bater as mãos, dificuldade nas interações sociais, no processamento de informações sensoriais e falta de contato visual.
+
+DIAS, S. de S.; OLIVEIRA, M. C. S. L. de. Deficiência intelectual na perspectiva histórico-cultural: contribuições ao estudo do desenvolvimento adulto. Revista Brasileira de Educação Especial, v. 19, n. 2, 2013, p.169-182. DOI: 10.1590/S1413-65382013000200003. Disponível em: http://www.scielo.br/scielo.php?script=sci_arttext&pid=S1413-65382013000200003&lng=pt&nrm=iso. Acesso em: 23 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_síndrome_do_álcool_fetal
+:pessoa_com_síndrome_do_álcool_fetal rdf:type owl:NamedIndividual ,
+                                              :pessoa_com_deficiência_intelectual ;
+                                     rdfs:comment """A síndrome do álcool fetal refere-se a condições causadas pela exposição do feto ao álcool. Quando uma mulher está grávida, o álcool cruza a placenta da corrente sanguínea da mãe para a do bebê, expondo-o à concentrações semelhantes às da mãe. Os sintomas podem variar, mas podem incluir características faciais distintas, deformidades das articulações, danos em órgãos como coração e rins, crescimento físico lento, dificuldades de aprendizado, falta de memória e discernimento, problemas comportamentais e habilidades sociais precárias. Muitos casos são diagnosticados como autismo ou TDAH, pois os sintomas e sinais são semelhantes. A Organização Mundial da Saúde recomenda que as futuras mães ou as que planejam engravidar devem se abster completamente de álcool.
+
+DIAS, S. de S.; OLIVEIRA, M. C. S. L. de. Deficiência intelectual na perspectiva histórico-cultural: contribuições ao estudo do desenvolvimento adulto. Revista Brasileira de Educação Especial, v. 19, n. 2, 2013, p.169-182. DOI: 10.1590/S1413-65382013000200003. Disponível em: http://www.scielo.br/scielo.php?script=sci_arttext&pid=S1413-65382013000200003&lng=pt&nrm=iso. Acesso em: 23 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_visão_baixa_visão_moderada
+:pessoa_com_visão_baixa_visão_moderada rdf:type owl:NamedIndividual ,
+                                                :pessoa_com_deficiência_visual ;
+                                       rdfs:comment """acuidade visual Snellen: 20/80 a 20/150
+acuidade visual decimal: 0,25 a 0,12
+auxílios: lentes esferoprismáticos, lupas mais fortes
+
+LEAL, D. N. B. Conceito de visão subnormal. CBO. Disponível em: https://www.cbo.com.br/subnorma/conceito.htm. Acesso em: 20 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_visão_baixa_visão_profunda
+:pessoa_com_visão_baixa_visão_profunda rdf:type owl:NamedIndividual ,
+                                                :pessoa_com_deficiência_visual ;
+                                       rdfs:comment """acuidade visual Snellen: 20/500 a 20/1000
+acuidade visual decimal: 0,04 a 0,02
+auxílios: lupa montada telescópio, magnificação vídeo, bengala/ treinamento o-m.
+
+LEAL, D. N. B. Conceito de visão subnormal. CBO. Disponível em: https://www.cbo.com.br/subnorma/conceito.htm. Acesso em: 20 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_visão_baixa_visão_severa
+:pessoa_com_visão_baixa_visão_severa rdf:type owl:NamedIndividual ,
+                                              :pessoa_com_deficiência_visual ;
+                                     rdfs:comment """acuidade visual Snellen: 20/200 a 20/400
+acuidade visual decimal: 0,10 a 0,05
+auxílios: lentes asféricas, lupas de mesa alto poder
+
+LEAL, D. N. B. Conceito de visão subnormal. CBO. Disponível em: https://www.cbo.com.br/subnorma/conceito.htm. Acesso em: 20 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_visão_cegueira_total
+:pessoa_com_visão_cegueira_total rdf:type owl:NamedIndividual ,
+                                          :pessoa_com_deficiência_visual ;
+                                 rdfs:comment """acuidade visual Snellen: spl
+acuidade visual decimal: spl
+auxílios: aparelhos saída de voz, bengala/ treinamento 0-m.
+
+LEAL, D. N. B. Conceito de visão subnormal. CBO. Disponível em: https://www.cbo.com.br/subnorma/conceito.htm. Acesso em: 20 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_visão_normal
+:pessoa_com_visão_normal rdf:type owl:NamedIndividual ,
+                                  :pessoa_sem_deficiência ;
+                         rdfs:comment """acuidade visual Snellen: 20/30 a 20/60
+acuidade visual decimal: 0,6 a 0,3
+auxílios: bifocais mais fortes lupas de baixo poder
+
+LEAL, D. N. B. Conceito de visão subnormal. CBO. Disponível em: https://www.cbo.com.br/subnorma/conceito.htm. Acesso em: 20 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_visão_próxima_do_normal
+:pessoa_com_visão_próxima_do_normal rdf:type owl:NamedIndividual ,
+                                             :pessoa_sem_deficiência ;
+                                    rdfs:comment """acuidade visual Snellen: 20/30 a 20/60
+acuidade visual decimal: 0,6 a 0,3
+auxílios: bifocais mais fortes lupas de baixo poder
+
+LEAL, D. N. B. Conceito de visão subnormal. CBO. Disponível em: https://www.cbo.com.br/subnorma/conceito.htm. Acesso em: 20 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_com_visão_próximo_à_cegueira
+:pessoa_com_visão_próximo_à_cegueira rdf:type owl:NamedIndividual ,
+                                              :pessoa_com_deficiência_visual ;
+                                     rdfs:comment """acuidade visual Snellen: 20/1200 a 20/2500
+acuidade visual decimal: 0,015 a 0,008
+auxílios: magnificação vídeo, livros falados, braille, aparelhos saída de voz, bengala/ treinamento o-m.
+
+LEAL, D. N. B. Conceito de visão subnormal. CBO. Disponível em: https://www.cbo.com.br/subnorma/conceito.htm. Acesso em: 20 out. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_idosa
+:pessoa_idosa rdf:type owl:NamedIndividual ,
+                       :pessoa_sem_deficiência .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_obesa
+:pessoa_obesa rdf:type owl:NamedIndividual ,
+                       :pessoa_sem_deficiência .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_sem_membro_inferior
+:pessoa_sem_membro_inferior rdf:type owl:NamedIndividual ,
+                                     :pessoa_com_mobilidade_reduzida .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#pessoa_sem_membro_superior
+:pessoa_sem_membro_superior rdf:type owl:NamedIndividual ,
+                                     :pessoa_com_mobilidade_reduzida .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#tahoma
+:tahoma rdf:type owl:NamedIndividual ,
+                 :fonte_sem_serifa ;
+        rdfs:comment """Tahoma é uma fonte sem serifa.
+ 
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#texto_em_colunas
+:texto_em_colunas rdf:type owl:NamedIndividual ,
+                           :barreiras_nas_comunicações_e_na_informação ;
+                  rdfs:comment """Evite dividir o documento em colunas. Sempre que possível, na navegação utilizando as setas, o leitor de tela passa apenas pela primeira coluna de cada página.	
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#texto_no_cabeçalho
+:texto_no_cabeçalho rdf:type owl:NamedIndividual ,
+                             :barreiras_nas_comunicações_e_na_informação ;
+                    rdfs:comment """Evite informações importantes no cabeçalho, pois a maioria dos leitores de tela ainda não realiza a leitura de cabeçalho e rodapé automaticamente.
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#texto_no_rodapé
+:texto_no_rodapé rdf:type owl:NamedIndividual ,
+                          :barreiras_nas_comunicações_e_na_informação ;
+                 rdfs:comment """Evite informações importantes no rodapé, pois a maioria dos leitores de tela ainda não realiza a leitura de cabeçalho e rodapé automaticamente.
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#times_new_roman
+:times_new_roman rdf:type owl:NamedIndividual ,
+                          :fonte_com_serifa ;
+                 rdfs:comment """Times New Roman é uma fonte com serifa.
+
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#transtorno_do_déficit_de_atenção_com_hiperatividade
+:transtorno_do_déficit_de_atenção_com_hiperatividade rdf:type owl:NamedIndividual ,
+                                                              :pessoa_com_transtorno_funcional_específico .
+
+
+###  http://www.semanticweb.org/logan/ontologies/2023/11/untitled-ontology-18#verdana
+:verdana rdf:type owl:NamedIndividual ,
+                  :fonte_sem_serifa ;
+         rdfs:comment """Verdana é uma fonte sem serifa.
+ 
+BRASIL. Tribunal de Contas da União. Criando documentos digitais acessíveis. Brasília: TCU, 2020. Disponível em: https://www.tjdft.jus.br/acessibilidade/publicacoes/documentos-pdf/producao_de_conteudo_com_acessibilidade_vf3.pdf. Acesso em: 25 ago. 2023.""" .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :documento_sonoro_com_acessibilidade
+                :barreiras_nas_comunicações_e_na_informação
+                :barreiras_tecnológicas
+                :documento_sonoro
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :documento_visual_com_acessibilidade
+                :barreiras_nas_comunicações_e_na_informação
+                :barreiras_tecnológicas
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :ampliador_de_tela
+                :audiodescrição
+                :avatar_de_Libras
+                :documento_escrito
+                :janela_de_libras
+                :legenda
+                :legenda_oculta
+                :leitor_de_tela
+                :transcrição_textual
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :audiodescrição
+                :barreiras_nas_comunicações_e_na_informação
+                :barreiras_tecnológicas
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
